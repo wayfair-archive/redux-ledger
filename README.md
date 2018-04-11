@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/wayfair/redux-ledger.svg?branch=master)](https://travis-ci.org/wayfair/redux-ledger)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![codecov](https://codecov.io/gh/wayfair/hypernova-php/branch/master/graph/badge.svg)](https://codecov.io/gh/wayfair/redux-ledger)
 
 # redux-ledger
 
