@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.csnzoo.com:abuldauskas/redux-ledger.git"
+    "url": "git@github.com:wayfair/redux-ledger.git"
   },
   "keywords": [
     "redux",
