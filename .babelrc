@@ -1,0 +1,6 @@
+{
+  "presets": [["env", { "modules": "umd" }]],
+  "plugins": [
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ]
+}
