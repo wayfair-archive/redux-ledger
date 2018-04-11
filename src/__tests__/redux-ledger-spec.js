@@ -38,7 +38,7 @@ const doAsyncC = ({ foo, bar }) => dispatch => {
 
 test("it records actions in a vanilla redux store", t => {
   const ledger = makeLedger();
-  const store = createStore(reducer, applyMiddleware(thunk, ledger));
+  const store = createStore(reducer, applyMiddleware(ledger, thunk));
   store.dispatch(doA({ foo: "foo" }));
   store.dispatch(doB({ bar: "bar" }));
   t.snapshot(ledger.getActions());
@@ -46,7 +46,7 @@ test("it records actions in a vanilla redux store", t => {
 
 test("waits for async actions", t => {
   const ledger = makeLedger();
-  const store = createStore(reducer, applyMiddleware(thunk, ledger));
+  const store = createStore(reducer, applyMiddleware(ledger, thunk));
   store.dispatch(doAsyncA({ foo: "foo" }));
   // Here are a bunch of cascading actions
   // Something that you will run into if you're trying to simulate UI events in
@@ -68,14 +68,14 @@ test("waits for async actions", t => {
 
 test("getActions", t => {
   const ledger = makeLedger();
-  const store = createStore(reducer, applyMiddleware(thunk, ledger));
+  const store = createStore(reducer, applyMiddleware(ledger, thunk));
   store.dispatch(doA({ foo: "foooooo-bar" }));
   t.snapshot(ledger.getActions());
 });
 
 test("clearActions", t => {
   const ledger = makeLedger();
-  const store = createStore(reducer, applyMiddleware(thunk, ledger));
+  const store = createStore(reducer, applyMiddleware(ledger, thunk));
   store.dispatch(doA({ foo: "foooooo-bar" }));
   ledger.clearActions();
   t.snapshot(ledger.getActions());

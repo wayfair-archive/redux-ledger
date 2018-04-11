@@ -4,8 +4,12 @@
   "description": "Redux unit test middleware",
   "main": "dist/index.js",
   "scripts": {
-    "test": "ava --no-color",
-    "build": "cross-env BABEL_ENV=production BABEL_OUTPUT=umd babel src --out-dir dist/ --ignore __tests__ --copy-files"
+    "build": "cross-env BABEL_ENV=production BABEL_OUTPUT=umd babel src --out-dir dist/ --ignore __tests__ --copy-files",
+    "test": "nyc --cache ava --no-color --tap | tap-nyc",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "tdd": "ava",
+    "nyc": "nyc",
+    "debug": "node --inspect-brk node_modules/ava/profile.js"
   },
   "repository": {
     "type": "git",
@@ -20,13 +24,16 @@
   "author": "Arthur Buldauskas",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.25.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "cross-env": "^5.1.4",
-    "prettier": "^1.11.1",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "ava": "0.25.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "codecov": "^3.0.0",
+    "cross-env": "5.1.4",
+    "nyc": "11.6.0",
+    "prettier": "1.11.1",
+    "redux": "3.7.2",
+    "redux-thunk": "2.2.0",
+    "tap-nyc": "1.0.3"
   },
   "ava": {
     "files": [

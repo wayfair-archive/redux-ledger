@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/wayfair/redux-ledger.svg?branch=master)](https://travis-ci.org/wayfair/redux-ledger)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 # redux-ledger
 
 Tiny redux middleware to run integration tests with thunks!
@@ -22,12 +25,12 @@ thunks to complete, then run your assertions.
 Every action in the store can be recorded by adding the middleware to the store.
 
 ```js
-import makeLedger from 'redux-ledger';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import makeLedger from "redux-ledger";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
-const doA = payload => ({type: 'action_a', payload});
-const doB = payload => ({type: 'action_b', payload});
+const doA = payload => ({ type: "action_a", payload });
+const doB = payload => ({ type: "action_b", payload });
 
 // For the purposes of a demo these are defined inline ...
 const doAsyncA = payload => dispatch => {
@@ -43,11 +46,14 @@ const doAsyncB = payload => dispatch => {
   });
 };
 
-test('asynchronous actions fired from my App', () => {
+test("asynchronous actions fired from my App", () => {
   const ledger = makeLedger();
-  const store = createStore((state = {}) => state, applyMiddleware(thunk, ledger));
-  store.dispatch(doA({foo: 'foo'}));
-  store.dispatch(doB({bar: 'bar'}));
+  const store = createStore(
+    (state = {}) => state,
+    applyMiddleware(ledger, thunk)
+  );
+  store.dispatch(doA({ foo: "foo" }));
+  store.dispatch(doB({ bar: "bar" }));
   // ledger.getActions() to get all actions recorded
   expect(ledger.getActions()).toMatchSnapshot();
 });
@@ -59,17 +65,17 @@ test('asynchronous actions fired from my App', () => {
 a store.
 
 ```js
-import makeLedger from 'redux-ledger';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import { mount } from 'enzyme';
+import makeLedger from "redux-ledger";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { mount } from "enzyme";
 // Component to test
-import MyAppContainer from 'my-app-container';
+import MyAppContainer from "my-app-container";
 
-test('asynchronous actions fired from my App', () => {
+test("asynchronous actions fired from my App", () => {
   const ledger = makeLedger();
-  const store = createStore(reducer, applyMiddleware(thunk, ledger));
+  const store = createStore(reducer, applyMiddleware(ledger, thunk));
   const wrapper = mount(
     <Provider store={store}>
       <MyAppContainer />
@@ -77,13 +83,12 @@ test('asynchronous actions fired from my App', () => {
   );
 
   // Simulate user interaction which will kick off asynchronous actions
-  wrapper.find(MyAppContainer).simulate('click');
+  wrapper.find(MyAppContainer).simulate("click");
 
   return ledger.resolve().then(actions => {
     expect(actions).toMatchSnapshot();
   });
 });
-
 ```
 
 ## API
@@ -108,4 +113,3 @@ ledger.getActions(); // [ { type: 'a', ...}, {type: 'b', ...} ]
 // Will clear any previously recorded actions
 ledger.clearActions();
 ```
-
