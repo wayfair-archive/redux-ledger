@@ -1,6 +1,6 @@
 {
   "name": "redux-ledger",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Redux unit test middleware",
   "main": "dist/index.js",
   "scripts": {
